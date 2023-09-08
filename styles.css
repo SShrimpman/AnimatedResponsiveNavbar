@@ -1,0 +1,223 @@
+:root {
+    font-size: 16px;
+    font-family: 'Open Sans';
+
+    /* Variáveis de CSS, já sei da existência, mas não posso esquecer por estar habituado a utilizar o TailwindCSS e por funcionar de forma diferente lá*/
+    --text-primary: #b6b6b6;
+    --text-secondary: #ececec;
+    --bg-primary: #23232e;
+    --bg-secondary: #141418;
+    --transition-speed: 600ms;
+}
+
+body {
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style do Scroll da página */
+
+    body::-webkit-scrollbar {
+        width: 0.25rem; /* largura do scroll todo */
+    }
+
+    body::-webkit-scrollbar-track {
+        background: #1e1e24; /* cor de fundo do scroll */
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background: #6649b8; /* cor do scroll em si */
+    }
+
+/*//////////////////////////*/
+
+main {
+    /* REM é uma unidade de medição que é relativa ao tamanho da fonte do "root", por exemplo '5rem' significa que é 16px( tamanho definido em cima) * 5 = 80px */
+    margin-left: 5rem;
+    padding: 1rem;
+}
+
+.navbar {
+    position: fixed; /* isto é óbvio, vai fixar a navbar no sitio, independentemente do scroll da página */
+    background-color: var(--bg-primary);
+    transition: width 200ms ease;
+}
+
+.navbar-nav {
+    height: 100%; /* Assim os items têm a altura toda da navbar */
+    list-style: none; /* Retirar os 'pontos' que faziam ficar em forma de lista */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Assim controlo para ficar tudo em coluna e também tudo alinhado ao centro */
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Aqui defino a grossura da letra, meto em maísculas, alinho ao centro, dou um espaçamento e meto a nav item com o logo a ocupar 100% da largura da navbar*/
+
+    .logo {
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        text-align: center;
+        letter-spacing: 0.3ch;
+        width: 100%;
+    }
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Aqui defino que o svg vai rodar da direita para a esquerda em hover*/
+
+    .logo svg {
+        transform: rotate(0deg);
+        transition: transform var(--transition-speed);
+    }
+
+    .navbar:hover .logo svg {
+        transform: rotate(-180deg);
+    }
+
+/*///////////////////////////////////////////////////////////////////*/
+
+/* O código em baixo é para eu definir cada item com largura de 100% da navbar e para o último elemento ficar ao fundo da página */
+
+    .nav-item {
+        width: 100%;
+    }
+
+    .nav-item:last-child {
+        margin-top: auto;
+    }
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Com este código alinho os ícones ao centro, defino que será em linha e não em coluna e crio um quadrado perfeito para cada um */
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        height: 5rem;
+        color: var(--text-primary);
+        text-decoration: none;
+        filter: grayscale(100%) opacity(0.7);
+        transition: var(--transition-speed);
+    }
+
+/*////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Aqui defino que em hover, perde o grayscale e dou uma cor ao background e ao texto*/
+
+    .nav-link:hover {
+        filter: grayscale(0%) opacity(1);
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+    }
+
+/*//////////////////////////////////////////////////////////////////////////////////*/
+
+/* Aqui escondo o texto e defino o espaço entre o texto e o ícone */
+
+    .link-text {
+        display: none;
+        margin-left: 1rem;
+    }
+
+/*////////////////////////////////////////////////////////////////*/
+
+/* Aqui defino o tamanho do svg, defino também que tem margem 0 em cima e baixo, e tem margem de 1.5rem à direita e à esquerda */
+
+    .nav-link svg {
+        width: 2rem;
+        min-width: 2rem;
+        margin: 0 1.5rem;
+    }
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Aqui defino as cores dos icones em hover, porque a nav-link tem um filtro de grayscale*/
+
+    .fa-primary {
+        color: #ff7eee;
+    }
+
+    .fa-secondary {
+        color: #df49a6;
+    }
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Aqui é apenas a velocidade com que é trocada a cor?*/
+
+/* .fa-primary, .fa-secondary {
+    transition: var(--transition-speed);
+} */
+
+/* Large screens/Desktop */
+@media only screen and (min-width: 600px){
+    .navbar {
+        top: 0;
+        width: 5rem; /* é fixe notar que este tamanho dá match à margin-left que defini em cima */
+        height: 100vh; /* isto eu já sei, mas é o tamanho da viewport, neste caso 100vh vai ocupar a altura toda da página */
+    }
+
+    /* Aqui defino que a navbar cresce em hover */
+
+        .navbar:hover {
+            width: 16rem;
+        }
+
+    /*/////////////////////////////////////////*/
+
+    /* Aqui mostro o texto em hover */
+
+        .navbar:hover .link-text {
+            display: inline;
+            transition: opacity var(--transition-speed);
+        }
+
+    /*/////////////////////////////*/
+}
+
+/* Small screens/Mobile */
+@media only screen and (max-width: 600px){
+
+    /* Aqui meto a navbar alinhada em baixo e inverto o width com o height*/
+
+        .navbar {
+            bottom: 0;
+            width: 100vw;
+            height: 5rem;
+        }
+
+    /*///////////////////////////////////////////////////////////////////*/
+
+    /* Aqui escondo o logo porque ocupa muito espaço*/
+
+        .logo {
+            display: none;
+        }
+
+    /*/////////////////////////////////////////////*/
+
+    /* Aqui defino que a direção em vez de ser em coluna, é em linha e alinho os ícones ao centro*/
+
+        .navbar-nav {
+            flex-direction: row;
+        }
+
+        .nav-link {
+            justify-content: center;
+        }
+
+    /*//////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+    /* Aqui removemos aquele gap que o conteúdo tinha à esquerda quando a navbar é à esquerda em desktop*/
+
+        main {
+            margin: 0;
+        }
+
+    /*/////////////////////////////////////////////////////////////////////////////////////////////////*/
+}
